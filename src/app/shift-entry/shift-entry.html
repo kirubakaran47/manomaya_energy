@@ -1,0 +1,800 @@
+<div *ngIf="isLoading" class="loader-overlay">
+  <div class="loader"></div>
+</div>
+<div class="content-section">
+  <div class="row tittle">
+    <div class="top col-md-5 align-self-center">
+      <h5>Add Shift Entry Screen</h5>
+    </div>
+    <div class="col-md-7  align-self-center">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
+        <li class="breadcrumb-item active">Add Shift Entry</li>
+      </ol>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-body">
+      <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <li class="nav-item" role="presentation">
+          <button class="nav-link active" id="shift1-tab" data-toggle="tab" data-target="#shift1" type="button"
+            role="tab" aria-controls="shift1" (click)="onShiftTabChange('A')" aria-selected="true">Shift A</button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="shift2-tab" data-toggle="tab" data-target="#shift2" type="button" role="tab"
+            aria-controls="shift2" (click)="onShiftTabChange('B')" aria-selected="false">Shift B</button>
+        </li>
+      </ul>
+      <div class="tab-content" id="myTabContent">
+        <div class="tab-pane fade show active" id="shift1" role="tabpanel" aria-labelledby="shift1-tab">
+          <form #shiftFormA="ngForm" (ngSubmit)="saveShiftA()">
+            <div class="entry-section">
+              <div class="form-group">
+                <div class="row">
+                  <div class="col-12 col-sm-6 col-lg-6">
+                    <div class="row card-section">
+                      <div class="col-12 col-sm-12 col-lg-2">
+                        <strong class="pump-text">Pump 1</strong>
+                      </div>
+                      <div class="col-12 col-sm-12 col-lg-10">
+                        <!-- Pump 1 → Nozzle 1 → Petrol -->
+                        <div class="row pump-card">
+                          <div class="col-4 col-lg-3">
+                            <img class="pump-img" *ngIf="!pumpSelection['pump1-shift1-ms1']"
+                              src="assets/img/pump-nozzle.png">
+                            <img class="pump-img" *ngIf="pumpSelection['pump1-shift1-ms1']"
+                              src="assets/img/pump-nozzle-on.png">
+                          </div>
+                          <div class="col-8 col-lg-9">
+                            <label class="d-flex align-items-center">
+                              <input type="radio" name="pumpSelection" value="pump1-shift1-ms1"
+                                [checked]="pumpSelection['pump1-shift1-ms1']"
+                                (change)="onPumpSelectedA('pump1-shift1-ms1')" />
+                              <span class="ms-2">MS1 (Nozzle 1 )</span>
+                            </label>
+                          </div>
+                        </div>
+                        <!-- Pump 1 → Nozzle 2 → Diesel -->
+                        <div class="row pump-card">
+                          <div class="col-4 col-lg-3">
+                            <img class="pump-img" *ngIf="!pumpSelection['pump1-shift1-hsd1']"
+                              src="assets/img/pump-nozzle.png">
+                            <img class="pump-img" *ngIf="pumpSelection['pump1-shift1-hsd1']"
+                              src="assets/img/pump-nozzle-on.png">
+                          </div>
+                          <div class="col-8 col-lg-9">
+                            <label class="d-flex align-items-center">
+                              <input type="radio" name="pumpSelection" value="pump1-shift1-hsd1"
+                                [checked]="pumpSelection['pump1-shift1-hsd1']"
+                                (change)="onPumpSelectedA('pump1-shift1-hsd1')" />
+                              <span class="ms-2">HSD1 (Nozzle 2 )</span>
+                            </label>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-12 col-sm-6 col-lg-6">
+                    <div class="row card-section">
+                      <div class="col-12 col-sm-12 col-lg-2">
+                        <strong class="pump-text">Pump 2</strong>
+                      </div>
+                      <div class="col-12 col-sm-12 col-lg-10">
+                        <!-- Pump 2 → Nozzle 1 → Petrol -->
+                        <div class="row pump-card">
+                          <div class="col-4 col-lg-3">
+                            <img class="pump-img" *ngIf="!pumpSelection['pump2-shift1-ms2']"
+                              src="assets/img/pump-nozzle.png">
+                            <img class="pump-img" *ngIf="pumpSelection['pump2-shift1-ms2']"
+                              src="assets/img/pump-nozzle-on.png">
+                          </div>
+                          <div class="col-8 col-lg-9">
+                            <label class="d-flex align-items-center">
+                              <input type="radio" name="pumpSelection" value="pump2-shift1-ms2"
+                                [checked]="pumpSelection['pump2-shift1-ms2']"
+                                (change)="onPumpSelectedA('pump2-shift1-ms2')" />
+                              <span class="ms-2">MS2 (Nozzle 1 )</span>
+                            </label>
+                          </div>
+                        </div>
+                        <!-- Pump 2 → Nozzle 2 → Diesel -->
+                        <div class="row pump-card">
+                          <div class="col-4 col-lg-3">
+                            <img class="pump-img" *ngIf="!pumpSelection['pump2-shift1-hsd2']"
+                              src="assets/img/pump-nozzle.png">
+                            <img class="pump-img" *ngIf="pumpSelection['pump2-shift1-hsd2']"
+                              src="assets/img/pump-nozzle-on.png">
+                          </div>
+                          <div class="col-8 col-lg-9">
+                            <label class="d-flex align-items-center">
+                              <input type="radio" name="pumpSelection" value="pump2-shift1-hsd2"
+                                [checked]="pumpSelection['pump2-shift1-hsd2']"
+                                (change)="onPumpSelectedA('pump2-shift1-hsd2')" />
+                              <span class="ms-2">HSD2 (Nozzle 2 )</span>
+                            </label>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+
+              <div *ngIf="isPumpSelectedA">
+                <div class="row">
+                  <div class="col-12 col-sm-4 col-lg-4">
+                    <div class="form-group">
+                      <label>Date</label>
+                      <input type="date" class="form-control" [(ngModel)]="shiftA.entries[0].shiftDate"
+                        name="shiftDate">
+                      <div *ngIf="shiftA.entries[0].errors['shiftDate']" class="text-danger small">
+                        {{ shiftA.entries[0].errors['shiftDate'] }}
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-12 col-sm-4 col-lg-4">
+                    <div class="form-group">
+                      <label>Pump</label>
+                      <input type="text" class="form-control" [(ngModel)]="shiftA.entries[0].pump" name="pump" readonly>
+                      <div *ngIf="shiftA.entries[0].errors['pump']" class="text-danger small">
+                        {{ shiftA.entries[0].errors['pump'] }}
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-12 col-sm-4 col-lg-4">
+                    <div class="form-group">
+                      <label>Shift</label>
+                      <input type="text" class="form-control" [(ngModel)]="shiftA.entries[0].shift" name="shift"
+                        readonly>
+                      <div *ngIf="shiftA.entries[0].errors['shift']" class="text-danger small">
+                        {{ shiftA.entries[0].errors['shift'] }}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="table-responsive">
+                  <table id="entryTable">
+                    <thead>
+                      <tr>
+                        <th>Operator Name</th>
+                        <th>Fuel Type</th>
+                        <th>Opening</th>
+                        <th>Closing</th>
+                        <th>Sales</th>
+                        <th>Price</th>
+                        <th>Total</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>
+                          <!-- <ng-select [items]="operators" bindLabel="" [(ngModel)]="shiftA.entries[0].operatorName"
+                            [searchable]="true" name="operatorName0" placeholder="Select Operator">
+                          </ng-select> -->
+                          <ng-select [items]="operators" bindLabel="name" bindValue="id"
+                            [(ngModel)]="shiftA.entries[0].operatorId" [searchable]="true"
+                            (change)="onOperatorChange($event, 0)" (ngModelChange)="clearError(0, 'operatorId')"
+                            (search)="onSearchChange($event)" name="operatorId" placeholder="Select Operator">
+                          </ng-select>
+                          <div *ngIf="shiftA.entries[0].errors['operatorId']" class="text-danger small">
+                            {{ shiftA.entries[0].errors['operatorId'] }}
+                          </div>
+                        </td>
+                        <td>
+                          <input type="text" class="form-control" [(ngModel)]="shiftA.entries[0].nozzle" name="nozzle"
+                            readonly (ngModelChange)="clearError(0, 'nozzle')">
+                          <div *ngIf="shiftA.entries[0].errors['nozzle']" class="text-danger small">
+                            {{ shiftA.entries[0].errors['nozzle'] }}
+                          </div>
+                        </td>
+                        <td>
+                          <input type="number" class="form-control" [(ngModel)]="shiftA.entries[0].opening"
+                            (input)="updateSalesA(0)" name="opening" step="1"
+                            (ngModelChange)="clearError(0, 'opening')">
+                          <div *ngIf="shiftA.entries[0].errors['opening']" class="text-danger small">
+                            {{ shiftA.entries[0].errors['opening'] }}
+                          </div>
+                        </td>
+                        <td>
+                          <input type="number" class="form-control" [(ngModel)]="shiftA.entries[0].closing"
+                            (input)="updateSalesA(0)" name="closing" step="1"
+                            (ngModelChange)="clearError(0, 'closing')">
+                          <div *ngIf="shiftA.entries[0].errors['closing']" class="text-danger small">
+                            {{ shiftA.entries[0].errors['closing'] }}
+                          </div>
+                        </td>
+                        <td>
+                          <input type="number" class="form-control" [(ngModel)]="shiftA.entries[0].sales" name="sales"
+                            readonly (ngModelChange)="clearError(0, 'sales')">
+                          <div *ngIf="shiftA.entries[0].errors['sales']" class="text-danger small">
+                            {{ shiftA.entries[0].errors['sales'] }}
+                          </div>
+                        </td>
+                        <td>
+                          <input type="text" class="form-control" [(ngModel)]="shiftA.entries[0].price" name="price"
+                            readonly (input)="calculateTotalsA()" (ngModelChange)="clearError(0, 'price')">
+                          <div *ngIf="shiftA.entries[0].errors['price']" class="text-danger small">
+                            {{ shiftA.entries[0].errors['price'] }}
+                          </div>
+                        </td>
+                        <td>
+                          <input type="text" class="form-control" [(ngModel)]="shiftA.entries[0].total" name="total"
+                            readonly (ngModelChange)="clearError(0, 'total')">
+                          <div *ngIf="shiftA.entries[0].errors['total']" class="text-danger small">
+                            {{ shiftA.entries[0].errors['total'] }}
+                          </div>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div class="row">
+                  <div class="col-12 col-md-6 col-lg-6">
+                    <div class="row">
+                      <div class="col-12">
+                        <div class="form-group row">
+                          <label class="col-12 col-sm-4 col-lg-3">Coins</label>
+                          <div class="col-12 col-sm-9 col-lg-9">
+                            <input type="number" class="form-control" [(ngModel)]="shiftA.entries[0].shiftcoins"
+                              name="shiftcoins" (input)="calculateTotalsA()">
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-12">
+                        <div class="form-group row">
+                          <label class="col-12 col-sm-4 col-lg-3">Gpay</label>
+                          <div class="col-12 col-sm-9 col-lg-9">
+                            <input type="number" class="form-control" [(ngModel)]="shiftA.entries[0].shiftgpay"
+                              name="shiftgpay" (input)="calculateTotalsA()">
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-12">
+                        <div class="form-group row">
+                          <label class="col-12 col-sm-4 col-lg-3">PhonePe</label>
+                          <div class="col-12 col-sm-9 col-lg-9">
+                            <input type="number" class="form-control" [(ngModel)]="shiftA.entries[0].shiftphonepe"
+                              name="shiftphonepe" (input)="calculateTotalsA()">
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-12">
+                        <div class="form-group row">
+                          <label class="col-12 col-sm-4 col-lg-3">Swiping Machine</label>
+                          <div class="col-12 col-sm-9 col-lg-9">
+                            <input type="number" class="form-control" [(ngModel)]="shiftA.entries[0].shiftswiping"
+                              name="shiftswiping" (input)="calculateTotalsA()">
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-12">
+                        <div class="form-group row">
+                          <label class="col-12 col-sm-4 col-lg-3">Cash</label>
+                          <div class="col-12 col-sm-9 col-lg-9">
+                            <input type="number" class="form-control" [(ngModel)]="shiftA.entries[0].shiftcash"
+                              name="shiftcash" (input)="calculateTotalsA()">
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-12">
+                        <div class="form-group row">
+                          <label class="col-12 col-sm-4 col-lg-3">Credit</label>
+                          <div class="col-12 col-sm-9 col-lg-9">
+                            <input type="number" class="form-control" [(ngModel)]="shiftA.entries[0].shiftcredit"
+                              name="shiftcredit" (input)="calculateTotalsA()">
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-12">
+                        <div class="form-group row">
+                          <label class="col-12 col-sm-4 col-lg-3">Total</label>
+                          <div class="col-12 col-sm-9 col-lg-9">
+                            <input type="number" class="form-control" [(ngModel)]="shiftA.entries[0].shifttotal"
+                              name="shifttotal0" readonly (input)="calculateTotalsA()"
+                              (ngModelChange)="clearError(0, 'shifttotal')">
+                            <div *ngIf="shiftA.entries[0].errors['shifttotal']" class="text-danger small">
+                              {{ shiftA.entries[0].errors['shifttotal'] }}
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-12">
+                        <div class="form-group row">
+                          <label class="col-12 col-sm-4 col-lg-3">Receipt</label>
+                          <div class="col-12 col-sm-9 col-lg-9">
+                            <input type="number" class="form-control" [(ngModel)]="shiftA.entries[0].shiftreceipt"
+                              name="shiftreceipt" (input)="calculateTotalsA()">
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-12">
+                        <div class="form-group row">
+                          <label class="col-12 col-sm-4 col-lg-3"><strong>Grand Total</strong></label>
+                          <div class="col-12 col-sm-9 col-lg-9">
+                            <input type="number" class="form-control" [(ngModel)]="shiftA.entries[0].shiftgrandtotal"
+                              name="shiftgrandtotal0" readonly (input)="calculateTotalsA()"
+                              (ngModelChange)="clearError(0, 'shiftgrandtotal')">
+                            <div *ngIf="shiftA.entries[0].errors['shiftgrandtotal']" class="text-danger small">
+                              {{ shiftA.entries[0].errors['shiftgrandtotal'] }}
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-12 col-md-6 col-lg-6">
+                    <div class="row">
+                      <div class="col-12">
+                        <div class="form-group row">
+                          <label class="col-12 col-sm-4 col-lg-3">Total</label>
+                          <div class="col-12 col-sm-9 col-lg-9">
+                            <input type="number" class="form-control" [(ngModel)]="shiftA.entries[0].shiftfueltotal"
+                              name="shiftfueltotal" (input)="calculateTotalsA()"
+                              (ngModelChange)="clearError(0, 'shiftfueltotal')">
+                            <div *ngIf="shiftA.entries[0].errors['shiftfueltotal']" class="text-danger small">
+                              {{ shiftA.entries[0].errors['shiftfueltotal'] }}
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-12">
+                        <div class="form-group row">
+                          <label class="col-12 col-sm-4 col-lg-3">Test</label>
+                          <div class="col-12 col-sm-9 col-lg-9">
+                            <input type="number" class="form-control" [(ngModel)]="shiftA.entries[0].shifttest"
+                              name="shifttest" (input)="calculateTotalsA()">
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-12">
+                        <div class="form-group row">
+                          <label class="col-12 col-sm-4 col-lg-3">Oil Sales</label>
+                          <div class="col-12 col-sm-9 col-lg-9">
+                            <input type="number" class="form-control" [(ngModel)]="shiftA.entries[0].shiftoilsales"
+                              name="shiftoilsales" (input)="calculateTotalsA()">
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-12">
+                        <div class="form-group row">
+                          <label class="col-12 col-sm-4 col-lg-3">Discount</label>
+                          <div class="col-12 col-sm-9 col-lg-9">
+                            <input type="number" class="form-control" [(ngModel)]="shiftA.entries[0].shiftdiscount"
+                              name="shiftdiscount" (input)="calculateTotalsA()">
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-12">
+                        <div class="form-group row">
+                          <label class="col-12 col-sm-4 col-lg-3">Extra Fuel</label>
+                          <div class="col-12 col-sm-9 col-lg-9">
+                            <input type="number" class="form-control" [(ngModel)]="shiftA.entries[0].shiftextrafuel"
+                              name="shiftextrafuel" (input)="calculateTotalsA()">
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-12">
+                        <div class="form-group row">
+                          <label class="col-12 col-sm-4 col-lg-3"><strong>Grand Total</strong> </label>
+                          <div class="col-12 col-sm-9 col-lg-9">
+                            <input type="number" class="form-control" [(ngModel)]="shiftA.entries[0].shiftgtotal"
+                              name="shiftgtotal" readonly (input)="calculateTotalsA()"
+                              (ngModelChange)="clearError(0, 'shiftgtotal')">
+                            <div *ngIf="shiftA.entries[0].errors['shiftgtotal']" class="text-danger small">
+                              {{ shiftA.entries[0].errors['shiftgtotal'] }}
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-12">
+                        <div class="form-group row">
+                          <label class="col-12 col-sm-4 col-lg-3"><strong>Difference</strong></label>
+                          <div class="col-12 col-sm-9 col-lg-9">
+                            <input type="number" class="form-control" [(ngModel)]="shiftA.entries[0].shiftdifference"
+                              name="shiftdifference" readonly (input)="calculateTotalsA()">
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="btn-section">
+                  <button class="btn btn-primary" type="submit" [disabled]="!shiftFormA.valid">Save Shift A</button>
+                  <button type="reset" (click)="onCancelA()" class="btn btn-secondary">Cancel</button>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="tab-pane fade" id="shift2" role="tabpanel" aria-labelledby="shift2-tab">
+          <form #shiftFormB="ngForm" (ngSubmit)="saveShiftB()">
+            <div class="entry-section">
+              <div class="form-group">
+                <div class="row">
+                  <div class="col-12 col-sm-6 col-lg-6">
+                    <div class="row card-section">
+                      <div class="col-12 col-sm-12 col-lg-2">
+                        <strong class="pump-text">Pump 1</strong>
+                      </div>
+                      <div class="col-12 col-sm-12 col-lg-10">
+                        <!-- Pump 1 → Nozzle 1 → Petrol -->
+                        <div class="row pump-card">
+                          <div class="col-4 col-lg-3">
+                            <img class="pump-img" *ngIf="!pumpSelection['pump1-shift2-ms1']"
+                              src="assets/img/pump-nozzle.png">
+                            <img class="pump-img" *ngIf="pumpSelection['pump1-shift2-ms1']"
+                              src="assets/img/pump-nozzle-on.png">
+                          </div>
+                          <div class="col-8 col-lg-9">
+                            <label class="d-flex align-items-center">
+                              <input type="radio" name="pumpSelection" value="pump1-shift2-ms1"
+                                [checked]="pumpSelection['pump1-shift2-ms1']"
+                                (change)="onPumpSelectedB('pump1-shift2-ms1')" />
+                              <span class="ms-2">MS1 (Nozzle 1 )</span>
+                            </label>
+                          </div>
+                        </div>
+                        <!-- Pump 1 → Nozzle 2 → Diesel -->
+                        <div class="row pump-card">
+                          <div class="col-4 col-lg-3">
+                            <img class="pump-img" *ngIf="!pumpSelection['pump1-shift2-hsd1']"
+                              src="assets/img/pump-nozzle.png">
+                            <img class="pump-img" *ngIf="pumpSelection['pump1-shift2-hsd1']"
+                              src="assets/img/pump-nozzle-on.png">
+                          </div>
+                          <div class="col-8 col-lg-9">
+                            <label class="d-flex align-items-center">
+                              <input type="radio" name="pumpSelection" value="pump1-shift2-hsd1"
+                                [checked]="pumpSelection['pump1-shift2-hsd1']"
+                                (change)="onPumpSelectedB('pump1-shift2-hsd1')" />
+                              <span class="ms-2">HSD1 (Nozzle 2 )</span>
+                            </label>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-12 col-sm-6 col-lg-6">
+                    <div class="row card-section">
+                      <div class="col-12 col-sm-12 col-lg-2">
+                        <strong class="pump-text">Pump 2</strong>
+                      </div>
+                      <div class="col-12 col-sm-12 col-lg-10">
+                        <!-- Pump 2 → Nozzle 1 → Petrol -->
+                        <div class="row pump-card">
+                          <div class="col-4 col-lg-3">
+                            <img class="pump-img" *ngIf="!pumpSelection['pump2-shift2-ms2']"
+                              src="assets/img/pump-nozzle.png">
+                            <img class="pump-img" *ngIf="pumpSelection['pump2-shift2-ms2']"
+                              src="assets/img/pump-nozzle-on.png">
+                          </div>
+                          <div class="col-8 col-lg-9">
+                            <label class="d-flex align-items-center">
+                              <input type="radio" name="pumpSelection" value="pump2-shift2-ms2"
+                                [checked]="pumpSelection['pump2-shift2-ms2']"
+                                (change)="onPumpSelectedB('pump2-shift2-ms2')" />
+                              <span class="ms-2">MS2 (Nozzle 1 )</span>
+                            </label>
+                          </div>
+                        </div>
+                        <!-- Pump 2 → Nozzle 2 → Diesel -->
+                        <div class="row pump-card">
+                          <div class="col-4 col-lg-3">
+                            <img class="pump-img" *ngIf="!pumpSelection['pump2-shift2-hsd2']"
+                              src="assets/img/pump-nozzle.png">
+                            <img class="pump-img" *ngIf="pumpSelection['pump2-shift2-hsd2']"
+                              src="assets/img/pump-nozzle-on.png">
+                          </div>
+                          <div class="col-8 col-lg-9">
+                            <label class="d-flex align-items-center">
+                              <input type="radio" name="pumpSelection" value="pump2-shift2-hsd2"
+                                [checked]="pumpSelection['pump2-shift2-hsd2']"
+                                (change)="onPumpSelectedB('pump2-shift2-hsd2')" />
+                              <span class="ms-2">HSD2 (Nozzle 2 )</span>
+                            </label>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+
+              <div *ngIf="isPumpSelectedB">
+                <div class="row">
+                  <div class="col-12 col-sm-4 col-lg-4">
+                    <div class="form-group">
+                      <label>Date</label>
+                      <input type="date" class="form-control" [(ngModel)]="shiftB.entries[0].shiftDate"
+                        name="shiftDateB">
+                      <div *ngIf="shiftB.entries[0].errors['shiftDate']" class="text-danger small">
+                        {{ shiftA.entries[0].errors['shiftDate'] }}
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-12 col-sm-4 col-lg-4">
+                    <div class="form-group">
+                      <label>Pump</label>
+                      <input type="text" class="form-control" [(ngModel)]="shiftB.entries[0].pump" name="pumpB"
+                        readonly>
+                      <div *ngIf="shiftB.entries[0].errors['pump']" class="text-danger small">
+                        {{ shiftB.entries[0].errors['pump'] }}
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-12 col-sm-4 col-lg-4">
+                    <div class="form-group">
+                      <label>Shift</label>
+                      <input type="text" class="form-control" [(ngModel)]="shiftB.entries[0].shift" name="shiftB"
+                        readonly>
+                      <div *ngIf="shiftB.entries[0].errors['shift']" class="text-danger small">
+                        {{ shiftB.entries[0].errors['shift'] }}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="table-responsive">
+                  <table id="entryTable">
+                    <thead>
+                      <tr>
+                        <th>Operator Name</th>
+                        <th>Fuel Type</th>
+                        <th>Opening</th>
+                        <th>Closing</th>
+                        <th>Sales</th>
+                        <th>Price</th>
+                        <th>Total</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>
+                          <ng-select [items]="operators" bindLabel="name" bindValue="id"
+                            [(ngModel)]="shiftB.entries[0].operatorId" [searchable]="true"
+                            (change)="onOperatorChange($event, 0)" (ngModelChange)="clearError(0, 'operatorId')"
+                            (search)="onSearchChange($event)" name="operatorIdB" placeholder="Select Operator">
+                          </ng-select>
+                          <div *ngIf="shiftB.entries[0].errors['operatorId']" class="text-danger small">
+                            {{ shiftB.entries[0].errors['operatorId'] }}
+                          </div>
+                        </td>
+
+                        <td>
+                          <input type="text" class="form-control" [(ngModel)]="shiftB.entries[0].nozzle"
+                            name="nozzleB" readonly (ngModelChange)="clearError(0, 'nozzle')">
+                          <div *ngIf="shiftB.entries[0].errors['nozzle']" class="text-danger small">
+                            {{ shiftB.entries[0].errors['nozzle'] }}
+                          </div>
+                        </td>
+                        <td>
+                          <input type="number" class="form-control" [(ngModel)]="shiftB.entries[0].opening"
+                            (input)="updateSalesB(0)" name="openingB" step="1"
+                            (ngModelChange)="clearError(0, 'opening')">
+                          <div *ngIf="shiftB.entries[0].errors['opening']" class="text-danger small">
+                            {{ shiftB.entries[0].errors['opening'] }}
+                          </div>
+                        </td>
+                        <td>
+                          <input type="number" class="form-control" [(ngModel)]="shiftB.entries[0].closing"
+                            (input)="updateSalesB(0)" name="closingB" step="1"
+                            (ngModelChange)="clearError(0, 'closing')">
+                          <div *ngIf="shiftB.entries[0].errors['closing']" class="text-danger small">
+                            {{ shiftB.entries[0].errors['closing'] }}
+                          </div>
+                        </td>
+                        <td>
+                          <input type="number" class="form-control" [(ngModel)]="shiftB.entries[0].sales" name="salesB"
+                            readonly (ngModelChange)="clearError(0, 'sales')">
+                          <div *ngIf="shiftB.entries[0].errors['sales']" class="text-danger small">
+                            {{ shiftB.entries[0].errors['sales'] }}
+                          </div>
+                        </td>
+
+                        <td>
+                          <input type="text" class="form-control" [(ngModel)]="shiftB.entries[0].price" name="priceB"
+                            readonly (input)="calculateTotalsB()" (ngModelChange)="clearError(0, 'price')">
+                          <div *ngIf="shiftB.entries[0].errors['price']" class="text-danger small">
+                            {{ shiftA.entries[0].errors['price'] }}
+                          </div>
+                        </td>
+                        <td>
+                          <input type="text" class="form-control" [(ngModel)]="shiftB.entries[0].total" name="totalB"
+                            readonly (ngModelChange)="clearError(0, 'total')">
+                          <div *ngIf="shiftB.entries[0].errors['total']" class="text-danger small">
+                            {{ shiftB.entries[0].errors['total'] }}
+                          </div>
+                        </td>
+
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div class="row">
+                  <div class="col-12 col-md-6 col-lg-6">
+                    <div class="row">
+                      <div class="col-12">
+                        <div class="form-group row">
+                          <label class="col-12 col-sm-4 col-lg-3">Coins</label>
+                          <div class="col-12 col-sm-9 col-lg-9">
+                            <input type="number" class="form-control" [(ngModel)]="shiftB.entries[0].shiftcoins"
+                              name="shiftcoinsB" (input)="calculateTotalsB()">
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-12">
+                        <div class="form-group row">
+                          <label class="col-12 col-sm-4 col-lg-3">Gpay</label>
+                          <div class="col-12 col-sm-9 col-lg-9">
+                            <input type="number" class="form-control" [(ngModel)]="shiftB.entries[0].shiftgpay"
+                              name="shiftgpayB" (input)="calculateTotalsB()">
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-12">
+                        <div class="form-group row">
+                          <label class="col-12 col-sm-4 col-lg-3">PhonePe</label>
+                          <div class="col-12 col-sm-9 col-lg-9">
+                            <input type="number" class="form-control" [(ngModel)]="shiftB.entries[0].shiftphonepe"
+                              name="shiftphonepeB" (input)="calculateTotalsB()">
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-12">
+                        <div class="form-group row">
+                          <label class="col-12 col-sm-4 col-lg-3">Swiping Machine</label>
+                          <div class="col-12 col-sm-9 col-lg-9">
+                            <input type="number" class="form-control" [(ngModel)]="shiftB.entries[0].shiftswiping"
+                              name="shiftswipingB" (input)="calculateTotalsB()">
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-12">
+                        <div class="form-group row">
+                          <label class="col-12 col-sm-4 col-lg-3">Cash</label>
+                          <div class="col-12 col-sm-9 col-lg-9">
+                            <input type="number" class="form-control" [(ngModel)]="shiftB.entries[0].shiftcash"
+                              name="shiftcashB" (input)="calculateTotalsB()">
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-12">
+                        <div class="form-group row">
+                          <label class="col-12 col-sm-4 col-lg-3">Credit</label>
+                          <div class="col-12 col-sm-9 col-lg-9">
+                            <input type="number" class="form-control" [(ngModel)]="shiftB.entries[0].shiftcredit"
+                              name="shiftcreditB" (input)="calculateTotalsB()">
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-12">
+                        <div class="form-group row">
+                          <label class="col-12 col-sm-4 col-lg-3">Total</label>
+                          <div class="col-12 col-sm-9 col-lg-9">
+                            <input type="number" class="form-control" [(ngModel)]="shiftB.entries[0].shifttotal"
+                              name="shifttotalB" readonly (input)="calculateTotalsB()"
+                              (ngModelChange)="clearError(0, 'shifttotal')">
+                            <div *ngIf="shiftB.entries[0].errors['shifttotal']" class="text-danger small">
+                              {{ shiftB.entries[0].errors['shifttotal'] }}
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-12">
+                        <div class="form-group row">
+                          <label class="col-12 col-sm-4 col-lg-3">Receipt</label>
+                          <div class="col-12 col-sm-9 col-lg-9">
+                            <input type="number" class="form-control" [(ngModel)]="shiftB.entries[0].shiftreceipt"
+                              name="shiftreceiptB" (input)="calculateTotalsB()">
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-12">
+                        <div class="form-group row">
+                          <label class="col-12 col-sm-4 col-lg-3"><strong>Grand Total</strong></label>
+                          <div class="col-12 col-sm-9 col-lg-9">
+                            <input type="number" class="form-control" [(ngModel)]="shiftB.entries[0].shiftgrandtotal"
+                              name="shiftgrandtotalB" readonly (input)="calculateTotalsB()"
+                              (ngModelChange)="clearError(0, 'shiftgrandtotal')">
+                            <div *ngIf="shiftB.entries[0].errors['shiftgrandtotal']" class="text-danger small">
+                              {{ shiftB.entries[0].errors['shiftgrandtotal'] }}
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-12 col-md-6 col-lg-6">
+                    <div class="row">
+                      <div class="col-12">
+                        <div class="form-group row">
+                          <label class="col-12 col-sm-4 col-lg-3">Total</label>
+                          <div class="col-12 col-sm-9 col-lg-9">
+                            <input type="number" class="form-control" [(ngModel)]="shiftB.entries[0].shiftfueltotal"
+                              name="shiftfueltotalB" (input)="calculateTotalsB()"
+                              (ngModelChange)="clearError(0, 'shiftfueltotal')">
+                            <div *ngIf="shiftB.entries[0].errors['shiftfueltotal']" class="text-danger small">
+                              {{ shiftB.entries[0].errors['shiftfueltotal'] }}
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-12">
+                        <div class="form-group row">
+                          <label class="col-12 col-sm-4 col-lg-3">Test</label>
+                          <div class="col-12 col-sm-9 col-lg-9">
+                            <input type="number" class="form-control" [(ngModel)]="shiftB.entries[0].shifttest"
+                              name="shifttestB" (input)="calculateTotalsB()">
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-12">
+                        <div class="form-group row">
+                          <label class="col-12 col-sm-4 col-lg-3">Oil Sales</label>
+                          <div class="col-12 col-sm-9 col-lg-9">
+                            <input type="number" class="form-control" [(ngModel)]="shiftB.entries[0].shiftoilsales"
+                              name="shiftoilsalesB" (input)="calculateTotalsB()">
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-12">
+                        <div class="form-group row">
+                          <label class="col-12 col-sm-4 col-lg-3">Discount</label>
+                          <div class="col-12 col-sm-9 col-lg-9">
+                            <input type="number" class="form-control" [(ngModel)]="shiftB.entries[0].shiftdiscount"
+                              name="shiftdiscountB" (input)="calculateTotalsB()">
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-12">
+                        <div class="form-group row">
+                          <label class="col-12 col-sm-4 col-lg-3">Extra Fuel</label>
+                          <div class="col-12 col-sm-9 col-lg-9">
+                            <input type="number" class="form-control" [(ngModel)]="shiftB.entries[0].shiftextrafuel"
+                              name="shiftextrafuelB" (input)="calculateTotalsB()">
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-12">
+                        <div class="form-group row">
+                          <label class="col-12 col-sm-4 col-lg-3"><strong>Grand Total</strong> </label>
+                          <div class="col-12 col-sm-9 col-lg-9">
+                            <input type="number" class="form-control" [(ngModel)]="shiftB.entries[0].shiftgtotal"
+                              name="shiftgtotalB" readonly (input)="calculateTotalsB()"
+                              (ngModelChange)="clearError(0, 'shiftgtotal')">
+                            <div *ngIf="shiftB.entries[0].errors['shiftgtotal']" class="text-danger small">
+                              {{ shiftB.entries[0].errors['shiftgtotal'] }}
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-12">
+                        <div class="form-group row">
+                          <label class="col-12 col-sm-4 col-lg-3"><strong>Difference</strong></label>
+                          <div class="col-12 col-sm-9 col-lg-9">
+                            <input type="number" class="form-control" [(ngModel)]="shiftB.entries[0].shiftdifference"
+                              name="shiftdifferenceB" readonly (input)="calculateTotalsB()">
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="btn-section">
+                  <button class="btn btn-primary" type="submit" [disabled]="!shiftFormB.valid">Save Shift B</button>
+                  <button type="reset" (click)="onCancelB()" class="btn btn-secondary">Cancel</button>
+                </div>
+              </div>
+            </div>
+          </form>
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</div>

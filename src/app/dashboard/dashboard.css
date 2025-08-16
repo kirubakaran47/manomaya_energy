@@ -1,0 +1,25 @@
+
+.dashboard .card {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 20px;
+  border-radius: 20px;
+  color: white;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+  transition: transform 0.2s ease-in-out;
+  margin: 0;
+}
+
+.dashboard .card:hover {
+  transform: translateY(-5px);
+}
+.green { background: #28a745; }
+.blue { background: #007bff; }
+.red { background: #dc3545; }
+.purple { background: #6f42c1; }
+@media (max-width: 768px) {
+  .round{font-size: 25px;line-height: normal;}
+  .dashboard .card .card-body{padding: 0;}
+}
+

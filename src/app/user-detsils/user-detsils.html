@@ -1,0 +1,573 @@
+<div *ngIf="isLoading" class="loader-overlay">
+  <div class="loader"></div>
+</div>
+<div class="content-section">
+  <div class="row tittle">
+    <div class="top col-md-5 align-self-center">
+      <h5>Staff List</h5>
+    </div>
+    <div class="col-md-7  align-self-center">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
+        <li class="breadcrumb-item active">Staff List</li>
+      </ol>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-body">
+      <div class="table-responsive">
+        <table id="user_datatable" class="table table-bordered table-striped table-hover">
+          <thead class="table-dark">
+            <tr>
+              <th>Serial</th>
+              <th>Name</th>
+              <th>Gender</th>
+              <th>Phone</th>
+              <th>Status</th>
+              <th>Role</th>
+              <th>Passbook</th>
+              <th>Profile</th>
+              <th>Pancard</th>
+              <th>Aadhar</th>
+              <th>Password</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let user of users; let i = index">
+              <td>{{ i + 1 }}</td>
+              <td>{{ user.full_name }}</td>
+              <td>{{ user.gender || 'N/A' }}</td>
+              <td>{{ user.phone }}</td>
+              <td>{{ user.status || user.active_status }}</td>
+              <td>{{ user.role }}</td>
+              <td>
+                <a *ngIf="user.bank_passbook_url" [href]="user.bank_passbook_url" target="_blank">View</a>
+              </td>
+              <td>
+                <img *ngIf="user.profile_image_url" [src]="user.profile_image_url" width="50" />
+              </td>
+               <td>
+                <a *ngIf="user.pancard_url" [href]="user.pancard_url" target="_blank">View</a>
+              </td>
+              <td>
+                <a *ngIf="user.aadhar_url" [href]="user.aadhar_url" target="_blank">View</a>
+              </td>
+               <td>{{ user.password }}</td>
+              <td>
+                <a class="btn btn-primary" (click)="editUser(user, i)">
+                  <i class="fa fa-edit" aria-hidden="true"></i>
+                </a>
+                <a class="btn btn-warning" (click)="changePasswordUser(user, i)">
+                  <i class="fa fa-key" aria-hidden="true"></i>
+                </a>
+                <a class="btn btn-danger" (click)="deleteUser(user, i)">
+                  <i class="fa fa-trash-alt" aria-hidden="true"></i>
+                </a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="editUserModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <form [formGroup]="editForm" (ngSubmit)="updateUser()" #editUserForm="ngForm">
+        <div class="modal-header">
+          <h5 class="modal-title">Edit User</h5>
+          <button type="button" class="close" (click)="closeModal()" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+
+        <div class="modal-body">
+           <div class="row">
+                    <!-- Name Field -->
+                    <div class="col-12 col-sm-6 col-lg-6">
+                        <div class="form-group">
+                            <label>UserName</label>
+                            <input type="text" class="form-control" formControlName="username" />
+                            <div *ngIf="editForm.get('username')?.invalid && editForm.get('username')?.touched"
+                                class="text-danger">
+                                Name is required.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-6 col-lg-6">
+                        <div class="form-group">
+                            <label>FullName</label>
+                            <input type="text" class="form-control" formControlName="fullname" />
+                            <div *ngIf="editForm.get('fullname')?.invalid && editForm.get('fullname')?.touched"
+                                class="text-danger">
+                                Name is required.
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Phone Field -->
+                    <div class="col-12 col-sm-6 col-lg-6">
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input type="email" class="form-control" formControlName="email" />
+                            <div *ngIf="editForm.get('email')?.invalid && editForm.get('email')?.touched"
+                                class="text-danger">
+                                Name is required.
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Phone Field -->
+                    <div class="col-12 col-sm-6 col-lg-6">
+                        <div class="form-group">
+                            <label>Phone Number</label>
+                            <input type="number" class="form-control" formControlName="phone" />
+                            <!-- <div *ngIf="editForm.get('phone')?.invalid && editForm.get('phone')?.touched"
+                                class="text-danger">
+                                Phone number is required.
+                            </div> -->
+                            <div *ngIf="editForm.get('phone')?.errors?.['pattern']" class="text-danger">Phone number must be 10 digits.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Address Fields -->
+                    <div class="col-12 col-sm-6 col-lg-6">
+                        <div class="form-group">
+                            <label>Address1</label>
+                            <input type="text" class="form-control" formControlName="address" />
+                            <div *ngIf="editForm.get('address')?.invalid && editForm.get('address')?.touched"
+                                class="text-danger">
+                                Address1 is required.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-sm-6 col-lg-6">
+                        <div class="form-group">
+                            <label>Address2</label>
+                            <input type="text" class="form-control" formControlName="address2" />
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-6 col-lg-6">
+                        <div class="form-group">
+                            <label>Address3</label>
+                            <input type="text" class="form-control" formControlName="address3" />
+                        </div>
+                    </div>
+
+                    <!-- City Field -->
+                    <div class="col-12 col-sm-6 col-lg-6">
+                        <div class="form-group">
+                            <label>City</label>
+                            <input type="text" class="form-control" formControlName="city" />
+                            <div *ngIf="editForm.get('city')?.invalid && editForm.get('city')?.touched"
+                                class="text-danger">
+                                City is required.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- State Field -->
+                    <div class="col-12 col-sm-6 col-lg-6">
+                        <div class="form-group">
+                            <label>State</label>
+                            <input type="text" class="form-control" formControlName="state" />
+                            <div *ngIf="editForm.get('state')?.invalid && editForm.get('state')?.touched"
+                                class="text-danger">
+                                State is required.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Country Field -->
+                    <div class="col-12 col-sm-6 col-lg-6">
+                        <div class="form-group">
+                            <label>Country</label>
+                            <input type="text" class="form-control" formControlName="country" />
+                            <div *ngIf="editForm.get('country')?.invalid && editForm.get('country')?.touched"
+                                class="text-danger">
+                                Country is required.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Pincode Field -->
+                    <div class="col-12 col-sm-6 col-lg-6">
+                        <div class="form-group">
+                            <label>Pincode</label>
+                            <input type="number" maxlength="6" pattern="\d*" class="form-control"
+                                formControlName="pincode">
+                            <!-- <div *ngIf="editForm.get('pincode')?.invalid && editForm.get('pincode')?.touched"
+                                class="text-danger">
+                                Pincode is required.
+                            </div> -->
+                            <div *ngIf="editForm.get('pincode')?.errors?.['pattern']"  class="text-danger">Pincode must be 6 digits.</div>
+                        </div>
+                    </div>
+
+                    <!-- Gender Field -->
+                    <div class="col-12 col-sm-6 col-lg-6">
+                        <div class="form-group">
+                            <label>Gender</label>
+                            <select class="form-control" formControlName="gender">
+                                <option value="">Select</option>
+                                <option value="male">Male</option>
+                                <option value="female">Female</option>
+                            </select>
+                            <div *ngIf="editForm.get('gender')?.invalid && editForm.get('gender')?.touched"
+                                class="text-danger">
+                                Gender is required.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Status Field -->
+                    <div class="col-12 col-sm-6 col-lg-6">
+                        <div class="form-group">
+                            <label>Status</label>
+                            <select class="form-control" formControlName="status">
+                                <option value="">Select</option>
+                                <option value="active">Active</option>
+                                <option value="inactive">Inactive</option>
+                            </select>
+                            <div *ngIf="editForm.get('status')?.invalid && editForm.get('status')?.touched"
+                                class="text-danger">
+                                Status is required.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- position Field -->
+                    <div class="col-12 col-sm-6 col-lg-6">
+                        <div class="form-group">
+                            <label>Role</label>
+                            <select class="form-control" formControlName="access">
+                                <option value="">Select</option>
+                                <option *ngFor="let role of roles" [value]="role.role_id">{{ role.role_name }}</option>
+                            </select>
+                            <div *ngIf="editForm.get('access')?.invalid && editForm.get('access')?.touched"
+                                class="text-danger">
+                                Role is required.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Profile Photo Upload -->
+                    <div class="col-12 col-sm-6 col-lg-6">
+                        <div class="form-group">
+                            <label>Profile Photo</label>
+                            <input type="file" class="form-control" formControlName="profile"
+                                (change)="onFileChange($event, 'profile')" />
+                            <div *ngIf="editForm.get('profile')?.invalid && editForm.get('profile')?.touched"
+                                class="text-danger">
+                                Profile photo is required.
+                            </div>
+                            <div *ngIf="preview.profile" class="mt-2">
+
+                                <img [src]="preview.profile" alt="Profile Preview" class="img-thumbnail" width="100"
+                                    (click)="viewImage(preview.profile)" style="cursor: pointer;" />
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <!-- Bank Passbook Upload -->
+                    <div class="col-12 col-sm-6 col-lg-6">
+                        <div class="form-group">
+                            <label>Bank Passbook</label>
+                            <input type="file" class="form-control" formControlName="passbook"
+                                (change)="onFileChange($event, 'passbook')" />
+                            <div *ngIf="editForm.get('passbook')?.invalid && editForm.get('passbook')?.touched"
+                                class="text-danger">
+                                Passbook photo is required.
+                            </div>
+                            <div *ngIf="preview.passbook" class="mt-2">
+                                <img [src]="preview.passbook" alt="Passbook Preview" class="img-thumbnail" width="100"
+                                    (click)="viewImage(preview.passbook)" style="cursor: pointer;" />
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <!-- Pancard Upload -->
+                    <div class="col-12 col-sm-6 col-lg-6">
+                        <div class="form-group">
+                            <label>Pancard</label>
+                            <input type="file" class="form-control" formControlName="pancard"
+                                (change)="onFileChange($event, 'pancard')" />
+                            <div *ngIf="editForm.get('pancard')?.invalid && editForm.get('pancard')?.touched"
+                                class="text-danger">
+                                Pancard photo is required.
+                            </div>
+                            <div *ngIf="preview.pancard" class="mt-2">
+                                <img [src]="preview.pancard" alt="Pancard Preview" class="img-thumbnail" width="100"
+                                    (click)="viewImage(preview.pancard)" style="cursor: pointer;" />
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <!-- Aadhar Upload -->
+                    <div class="col-12 col-sm-6 col-lg-6">
+                        <div class="form-group">
+                            <label>Aadhar Upload</label>
+                            <input type="file" class="form-control" formControlName="aadhar"
+                                (change)="onFileChange($event, 'aadhar')" />
+                            <div *ngIf="editForm.get('aadhar')?.invalid && editForm.get('aadhar')?.touched"
+                                class="text-danger">
+                                Aadhar photo is required.
+                            </div>
+                            <div *ngIf="preview.aadhar" class="mt-2">
+                                <img [src]="preview.aadhar" alt="Aadhar Preview" class="img-thumbnail" width="100"
+                                    (click)="viewImage(preview.aadhar)" style="cursor: pointer;" />
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-12 col-lg-12">
+                        <div class="form-group">
+                            <label>
+                                Role Permissions
+                            </label>
+                        </div>
+
+                        <div class="form-group">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>Role</th>
+                                        <th><input type="checkbox" (change)="toggleAll('read', $event)"> Read</th>
+                                        <th><input type="checkbox" (change)="toggleAll('add', $event)"> Add</th>
+                                        <th><input type="checkbox" (change)="toggleAll('edit', $event)"> Edit</th>
+                                        <th><input type="checkbox" (change)="toggleAll('delete', $event)"> Delete</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- Dashboard (locked) -->
+                                    <tr>
+                                        <td>Dashboard</td>
+                                        <td><input type="checkbox"
+                                                [checked]="selectedRoles.includes(roleMap['dashboard'].read)"
+                                                (change)="togglePermission('dashboard', 'read', $event)"></td>
+                                        <td><input type="checkbox"
+                                                [checked]="selectedRoles.includes(roleMap['dashboard'].add)"
+                                                (change)="togglePermission('dashboard', 'add', $event)"></td>
+                                        <td><input type="checkbox"
+                                                [checked]="selectedRoles.includes(roleMap['dashboard'].edit)"
+                                                (change)="togglePermission('dashboard','edit', $event)"></td>
+                                        <td><input type="checkbox"
+                                                [checked]="selectedRoles.includes(roleMap['dashboard'].delete)"
+                                                (change)="togglePermission('dashboard','delete', $event)"></td>
+                                    </tr>
+
+                                    <!-- Shift Entry -->
+                                    <tr>
+                                        <td>Shift Entry</td>
+                                        <td><input type="checkbox"
+                                                [checked]="selectedRoles.includes(roleMap['shift_entry'].read)"
+                                                (change)="togglePermission('shift_entry', 'read', $event)"></td>
+                                        <td><input type="checkbox"
+                                                [checked]="selectedRoles.includes(roleMap['shift_entry'].add)"
+                                                (change)="togglePermission('shift_entry', 'add', $event)"></td>
+                                        <td><input type="checkbox"
+                                                [checked]="selectedRoles.includes(roleMap['shift_entry'].edit)"
+                                                (change)="togglePermission('shift_entry','edit', $event)"></td>
+                                        <td><input type="checkbox"
+                                                [checked]="selectedRoles.includes(roleMap['shift_entry'].delete)"
+                                                (change)="togglePermission('shift_entry','delete', $event)"></td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>Purchase Entry</td>
+                                        <td><input type="checkbox"
+                                                [checked]="selectedRoles.includes(roleMap['purchase_entry'].read)"
+                                                (change)="togglePermission('purchase_entry', 'read', $event)"></td>
+                                        <td><input type="checkbox"
+                                                [checked]="selectedRoles.includes(roleMap['purchase_entry'].add)"
+                                                (change)="togglePermission('purchase_entry', 'add', $event)"></td>
+                                        <td><input type="checkbox"
+                                                [checked]="selectedRoles.includes(roleMap['purchase_entry'].edit)"
+                                                (change)="togglePermission('purchase_entry','edit', $event)"></td>
+                                        <td><input type="checkbox"
+                                                [checked]="selectedRoles.includes(roleMap['purchase_entry'].delete)"
+                                                (change)="togglePermission('purchase_entry','delete', $event)"></td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>Staff</td>
+                                        <td><input type="checkbox"
+                                                [checked]="selectedRoles.includes(roleMap['staff'].read)"
+                                                (change)="togglePermission('staff', 'read', $event)"></td>
+                                        <td><input type="checkbox"
+                                                [checked]="selectedRoles.includes(roleMap['staff'].add)"
+                                                (change)="togglePermission('staff', 'add', $event)"></td>
+                                        <td><input type="checkbox"
+                                                [checked]="selectedRoles.includes(roleMap['staff'].edit)"
+                                                (change)="togglePermission('staff','edit', $event)"></td>
+                                        <td><input type="checkbox"
+                                                [checked]="selectedRoles.includes(roleMap['staff'].delete)"
+                                                (change)="togglePermission('staff','delete', $event)"></td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>Manage Product</td>
+                                        <td><input type="checkbox"
+                                                [checked]="selectedRoles.includes(roleMap['manage_product'].read)"
+                                                (change)="togglePermission('manage_product', 'read', $event)"></td>
+                                        <td><input type="checkbox"
+                                                [checked]="selectedRoles.includes(roleMap['manage_product'].add)"
+                                                (change)="togglePermission('manage_product', 'add', $event)"></td>
+                                        <td><input type="checkbox"
+                                                [checked]="selectedRoles.includes(roleMap['manage_product'].edit)"
+                                                (change)="togglePermission('manage_product','edit', $event)"></td>
+                                        <td><input type="checkbox"
+                                                [checked]="selectedRoles.includes(roleMap['manage_product'].delete)"
+                                                (change)="togglePermission('manage_product','delete', $event)"></td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>Add Vendor</td>
+                                        <td><input type="checkbox"
+                                                [checked]="selectedRoles.includes(roleMap['add_vendor'].read)"
+                                                (change)="togglePermission('add_vendor', 'read', $event)">
+                                        </td>
+                                        <td><input type="checkbox"
+                                                [checked]="selectedRoles.includes(roleMap['add_vendor'].add)"
+                                                (change)="togglePermission('add_vendor', 'add', $event)">
+                                        </td>
+                                        <td><input type="checkbox"
+                                                [checked]="selectedRoles.includes(roleMap['add_vendor'].edit)"
+                                                (change)="togglePermission('add_vendor','edit', $event)">
+                                        </td>
+                                        <td><input type="checkbox"
+                                                [checked]="selectedRoles.includes(roleMap['add_vendor'].delete)"
+                                                (change)="togglePermission('add_vendor','delete', $event)">
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>Vendor Details</td>
+                                        <td><input type="checkbox"
+                                                [checked]="selectedRoles.includes(roleMap['vendor_details'].read)"
+                                                (change)="togglePermission('vendor_details', 'read', $event)"></td>
+                                        <td><input type="checkbox"
+                                                [checked]="selectedRoles.includes(roleMap['vendor_details'].add)"
+                                                (change)="togglePermission('vendor_details', 'add', $event)"></td>
+                                        <td><input type="checkbox"
+                                                [checked]="selectedRoles.includes(roleMap['vendor_details'].edit)"
+                                                (change)="togglePermission('vendor_details','edit', $event)"></td>
+                                        <td><input type="checkbox"
+                                                [checked]="selectedRoles.includes(roleMap['vendor_details'].delete)"
+                                                (change)="togglePermission('vendor_details','delete', $event)"></td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>RPS Details</td>
+                                        <td><input type="checkbox"
+                                                [checked]="selectedRoles.includes(roleMap['rps_details'].read)"
+                                                (change)="togglePermission('rps_details', 'read', $event)">
+                                        </td>
+                                        <td><input type="checkbox"
+                                                [checked]="selectedRoles.includes(roleMap['rps_details'].add)"
+                                                (change)="togglePermission('rps_details', 'add', $event)">
+                                        </td>
+                                        <td><input type="checkbox"
+                                                [checked]="selectedRoles.includes(roleMap['rps_details'].edit)"
+                                                (change)="togglePermission('rps_details','edit', $event)">
+                                        </td>
+                                        <td><input type="checkbox"
+                                                [checked]="selectedRoles.includes(roleMap['rps_details'].delete)"
+                                                (change)="togglePermission('rps_details','delete', $event)">
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>User Profile</td>
+                                        <td><input type="checkbox"
+                                                [checked]="selectedRoles.includes(roleMap['user_profile'].read)"
+                                                (change)="togglePermission('user_profile', 'read', $event)">
+                                        </td>
+                                        <td><input type="checkbox"
+                                                [checked]="selectedRoles.includes(roleMap['user_profile'].add)"
+                                                (change)="togglePermission('user_profile', 'add', $event)">
+                                        </td>
+                                        <td><input type="checkbox"
+                                                [checked]="selectedRoles.includes(roleMap['user_profile'].edit)"
+                                                (change)="togglePermission('user_profile','edit', $event)">
+                                        </td>
+                                        <td><input type="checkbox"
+                                                [checked]="selectedRoles.includes(roleMap['user_profile'].delete)"
+                                                (change)="togglePermission('user_profile','delete', $event)">
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-success">Update</button>
+          <button type="button" class="btn btn-secondary" (click)="closeModal()">Cancel</button>
+        </div>
+      </form>
+
+    </div>
+  </div>
+</div>
+
+<!-- 🔐 Reset Password Modal -->
+<div class="modal fade" id="resetPasswordModal" tabindex="-1" role="dialog" aria-labelledby="resetPasswordModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <form [formGroup]="resetPasswordForm" (ngSubmit)="submitPasswordReset()">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Reset Password for {{ selectedUser?.full_name }}</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <!-- Current Password -->
+          <div class="form-group">
+            <label for="currentPassword">Current Password</label>
+            <input type="password" id="currentPassword" formControlName="current_password" class="form-control" required>
+            <div *ngIf="resetPasswordForm.get('current_password')?.touched && resetPasswordForm.get('current_password')?.invalid" class="text-danger">
+              Current password is required.
+            </div>
+          </div>
+
+          <!-- New Password -->
+          <div class="form-group">
+            <label for="newPassword">New Password</label>
+            <input type="password" id="newPassword" formControlName="new_password" class="form-control" required>
+            <div *ngIf="resetPasswordForm.get('new_password')?.touched && resetPasswordForm.hasError('newPasswordSameAsCurrent')" class="text-danger">
+              New password cannot be the same as current password.
+            </div>
+            <div *ngIf="resetPasswordForm.get('new_password')?.touched && resetPasswordForm.get('new_password')?.errors?.['required']" class="text-danger">
+              New password is required.
+            </div>
+          </div>
+
+          <!-- Re-enter Password -->
+          <div class="form-group">
+            <label for="confirmPassword">Re-enter New Password</label>
+            <input type="password" id="confirmPassword" formControlName="confirm_password" class="form-control" required>
+            <div *ngIf="resetPasswordForm.hasError('passwordMismatch') && resetPasswordForm.get('confirm_password')?.touched" class="text-danger">
+              Passwords do not match.
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary" [disabled]="resetPasswordForm.invalid">Reset Password</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

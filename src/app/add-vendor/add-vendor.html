@@ -1,0 +1,183 @@
+<div *ngIf="isLoading" class="loader-overlay">
+  <div class="loader"></div>
+</div>
+<div class="content-section">
+  <div class="row tittle">
+    <div class="top col-md-5 align-self-center">
+      <h5>Add Vendor</h5>
+    </div>
+    <div class="col-md-7 align-self-center">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
+        <li class="breadcrumb-item active">Add Vendor</li>
+      </ol>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-body">
+      <form [formGroup]="vendorForm" (ngSubmit)="onSubmit()">
+        <div class="row">
+          <div class="col-12 col-sm-6 col-lg-4">
+            <div class="form-group row">
+              <label for="company_code" class="col-lg-12 col-form-label">Company Code <span
+                  style="color: red;">*</span></label>
+              <div class="col-lg-12">
+                <input type="text" id="company_code" formControlName="company_code" class="form-control">
+                <div *ngIf="vendorForm.get('company_code')?.touched && vendorForm.get('company_code')?.invalid">
+                  <small class="text-danger" *ngIf="vendorForm.get('company_code')?.hasError('required')">Company Code
+                    is required.</small>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-sm-6 col-lg-4">
+            <div class="form-group row">
+              <label for="company_name" class="col-lg-12 col-form-label">Company Name <span
+                  style="color: red;">*</span></label>
+              <div class="col-lg-12">
+                <input type="text" id="company_name" formControlName="company_name" class="form-control">
+                <div *ngIf="vendorForm.get('company_name')?.touched && vendorForm.get('company_name')?.invalid">
+                  <small class="text-danger" *ngIf="vendorForm.get('company_name')?.hasError('required')">Company Name
+                    is required.</small>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12 col-sm-6 col-lg-4">
+            <div class="form-group row">
+              <label for="vendor_name" class="col-lg-12 col-form-label">Vendor Name <span
+                  style="color: red;">*</span></label>
+              <div class="col-lg-12">
+                <input type="text" id="vendor_name" formControlName="vendor_name" class="form-control">
+                <div *ngIf="vendorForm.get('vendor_name')?.touched && vendorForm.get('vendor_name')?.invalid">
+                  <small class="text-danger" *ngIf="vendorForm.get('vendor_name')?.hasError('required')">Vendor Name is
+                    required.</small>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12 col-sm-6 col-lg-4">
+            <div class="form-group row">
+              <label for="address_1" class="col-lg-12 col-form-label">Address-1 <span
+                  style="color: red;">*</span></label>
+              <div class="col-lg-12">
+                <input type="text" id="address_1" formControlName="address_1" class="form-control">
+                <div *ngIf="vendorForm.get('address_1')?.touched && vendorForm.get('address_1')?.invalid">
+                  <small class="text-danger" *ngIf="vendorForm.get('address_1')?.hasError('required')">Address-1 is
+                    required.</small>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12 col-sm-6 col-lg-4">
+            <div class="form-group row">
+              <label for="address_2" class="col-lg-12 col-form-label">Address-2 <span
+                  style="color: red;">*</span></label>
+              <div class="col-lg-12">
+                <input type="text" id="address_2" formControlName="address_2" class="form-control">
+                <div *ngIf="vendorForm.get('address_2')?.touched && vendorForm.get('address_2')?.invalid">
+                  <small class="text-danger" *ngIf="vendorForm.get('address_2')?.hasError('required')">Address-2 is
+                    required.</small>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12 col-sm-6 col-lg-4">
+            <div class="form-group row">
+              <label for="city" class="col-lg-12 col-form-label">City <span style="color: red;">*</span></label>
+              <div class="col-lg-12">
+                <input type="text" id="city" formControlName="city" class="form-control">
+                <div *ngIf="vendorForm.get('city')?.touched && vendorForm.get('city')?.invalid">
+                  <small class="text-danger" *ngIf="vendorForm.get('city')?.hasError('required')">City is
+                    required.</small>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12 col-sm-6 col-lg-4">
+            <div class="form-group row">
+              <label for="phone" class="col-lg-12 col-form-label">Phone</label>
+              <div class="col-lg-12">
+                <input type="number" id="phone" formControlName="phone" class="form-control">
+                <div *ngIf="vendorForm.get('phone')?.touched && vendorForm.get('phone')?.invalid">
+                  <small class="text-danger" *ngIf="vendorForm.get('phone')?.hasError('required')">Phone is
+                    required.</small>
+                  <small class="text-danger" *ngIf="vendorForm.get('phone')?.hasError('pattern')">Phone must be a valid
+                    number.</small>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12 col-sm-6 col-lg-4">
+            <div class="form-group row">
+              <label for="mobile_phone" class="col-lg-12 col-form-label">Mobile Phone <span
+                  style="color: red;">*</span></label>
+              <div class="col-lg-12">
+                <input type="number" id="mobile_phone" formControlName="mobile_phone" class="form-control">
+                <div *ngIf="vendorForm.get('mobile_phone')?.touched && vendorForm.get('mobile_phone')?.invalid">
+                  <small class="text-danger" *ngIf="vendorForm.get('mobile_phone')?.hasError('required')">Mobile Phone
+                    is required.</small>
+                  <small class="text-danger" *ngIf="vendorForm.get('mobile_phone')?.hasError('pattern')">Mobile Phone
+                    must be a valid number.</small>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-sm-6 col-lg-4">
+            <div class="form-group row">
+              <label for="fax" class="col-lg-12 col-form-label">Fax</label>
+              <div class="col-lg-12">
+                <input type="email" id="fax" formControlName="fax" class="form-control">
+                <div *ngIf="vendorForm.get('fax')?.touched && vendorForm.get('fax')?.invalid">
+                  <small class="text-danger" *ngIf="vendorForm.get('fax')?.hasError('required')">Fax is
+                    required.</small>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-sm-6 col-lg-4">
+            <div class="form-group row">
+              <label for="e_mail" class="col-lg-12 col-form-label">Email <span style="color: red;">*</span></label>
+              <div class="col-lg-12">
+                <input type="email" id="e_mail" formControlName="e_mail" class="form-control">
+                <div *ngIf="vendorForm.get('e_mail')?.touched && vendorForm.get('e_mail')?.invalid">
+                  <small class="text-danger" *ngIf="vendorForm.get('e_mail')?.hasError('required')">Email is
+                    required.</small>
+                  <small class="text-danger" *ngIf="vendorForm.get('e_mail')?.hasError('email')">Enter a valid
+                    email.</small>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12 col-sm-6 col-lg-4">
+            <div class="form-group row">
+              <label for="bank" class="col-lg-12 col-form-label">Bank Details <span style="color: red;">*</span></label>
+              <div class="col-lg-12">
+                <input type="text" id="bank" formControlName="bank" class="form-control">
+                <div *ngIf="vendorForm.get('bank')?.touched && vendorForm.get('bank')?.invalid">
+                  <small class="text-danger" *ngIf="vendorForm.get('bank')?.hasError('required')">Bank Details are
+                    required.</small>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="btn-apply">
+          <button class="btn btn-primary" type="submit">Save Vendor</button>
+        </div>
+      </form>
+
+
+
+    </div>
+  </div>
+</div>

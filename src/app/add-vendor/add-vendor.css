@@ -1,0 +1,7 @@
+.form-control{width: 100%;}
+.btn-apply{
+    display: block;
+    margin: 10px 0px;
+    float: right;
+}
+.btn-apply .btn{float: right;}

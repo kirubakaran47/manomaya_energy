@@ -1,0 +1,105 @@
+.form-control{width: 100%;}
+td,th {
+    border: 1px solid #ddd;
+    padding: 10px;
+}
+th {
+    background: #174282;
+    color: #fff;
+}
+/* th:nth-child(3){width: 10%;} */
+table#entryTable {margin: 20px 0px;width: 100%;}
+button.btn{margin: 4px;}
+
+.payement-section label{margin-bottom: 15px;}
+form{padding: 25px;}
+.entry-section {margin-bottom: 25px;}
+.btn-section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 32px;
+}
+.remove{
+    color: #fff;
+    background-color: #ec536c;
+    border: 1px solid #ec536c;
+    border-radius: 3px;
+    font-size: 14px;
+    padding: .375rem .75rem;
+    text-align: center;
+    vertical-align: middle;
+    display: inline-block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+td .remove-btn{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.pump-img{width: 80px;float: right;}
+.pump-card{align-items: center;}
+.pump-card label span{padding-left: 10px;}
+.pump-card label input{    width: 15px;height: 15px;}
+.card-section{
+    align-items: center; 
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    margin: 20px;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.nav-tabs  li .nav-link   {
+    position: relative;
+    display: block;
+    width: 100%;
+    padding: 15px 15px;
+    background-color: #dadada;
+    text-align: left;
+    border-radius: 4px;
+    transition: color, background-color 0.3s ease;
+    font-size: 18px;
+}
+.nav-tabs  li .nav-link.active  {
+    color: #fff;
+    background-color: #333333;
+    
+}
+.nav-tabs  li .nav-link.active::after {
+    position: absolute;
+    bottom: -39px;
+    height: 0;
+    width: 0;
+    left: 50%;
+    transform: rotate(180deg);
+    border: 20px solid transparent;
+    border-bottom-color: #333333;
+    content: "";
+}
+li.nav-item {
+    width: 49%;
+    margin: 6px;
+}
+.nav-tabs {
+    border-bottom: none;
+}
+
+.tab-pane{ box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;border-radius: 10px;}
+ng-select.form-control{border: none;padding: 0;}
+th:first-child{width: 20%;}
+@media (min-width: 768px) {
+.table-responsive{
+  overflow-x: visible;
+}
+}
+@media (max-width: 768px) {
+form {
+    padding: 0;
+}
+li.nav-item{width: 45%;}
+.tab-pane{box-shadow: none;padding: 0;}
+.card-section{margin:10px 0;}
+.card-section .pump-text{text-align: center;display: block;}
+}

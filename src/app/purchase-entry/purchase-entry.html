@@ -1,0 +1,97 @@
+<div class="content-section">
+  <div class="row tittle">
+    <div class="top col-md-5 align-self-center">
+      <h5>Purchase Entry</h5>
+    </div>
+    <div class="col-md-7 align-self-center">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
+        <li class="breadcrumb-item active">Purchase Entry</li>
+      </ol>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-body">
+      <div class="">
+        <div class="table-responsive">
+          <table class="table table-striped table-bordered dt-responsive nowrap" id="entryTable">
+            <thead>
+              <tr>
+                <th>Product Name</th>
+                <th>Vendor Name</th>
+                <th>Qty</th>
+                <th>Price</th>
+                <th>TNVAT</th>
+                <th>VAT LSI</th>
+                <th>TCS</th>
+                <th>Total</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <input type="text" class="form-control" name="product">
+                </td>
+                <td>
+                  <input type="text" class="form-control" name="vendor">
+                </td>
+                <td>
+                  <input type="number" class="form-control" name="qty">
+                </td>
+                <td>
+                  <input type="number" class="form-control" name="price">
+                </td>
+                <td>
+                  <input type="number" class="form-control" name="tnvat">
+                </td>
+                <td>
+                  <input type="text" class="form-control" name="vat_lsi">
+                </td>
+                <td>
+                  <input type="text" class="form-control" name="tcs">
+                </td>
+                <td>
+                  <input type="text" class="form-control" name="total">
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <table class="table table-bordered w-50 float-right">
+            <tr>
+              <td></td>
+              <td>Purchse Cost</td>
+              <td class="text-end"><input type="text" class="form-control"></td>
+            </tr>
+            <tr>
+              <td>Transport</td>
+              <td></td>
+              <td class="text-end"><input type="text" class="form-control"></td>
+              
+            </tr>
+            <tr>
+              <td>Vendor Name</td>
+              <td></td>
+              <td class="text-end"><input type="text" class="form-control"></td>
+            </tr>
+            <tr>
+              <td>Amount</td>
+              <td></td>
+              <td class="text-end"><input type="text" class="form-control"></td>
+            </tr>
+            <tr>
+              <td></td>
+              <td><strong>Gross</strong></td>
+              <td class="text-end"><strong><input type="text" class="form-control"></strong></td>
+            </tr>
+          </table>
+
+        </div>
+
+        <!-- <div class="btn-section">
+              <button class="btn btn-primary" type="submit">Save Shift</button>
+              <button type="reset" (click)="onCancel()" class="btn btn-secondary">Cancel</button>
+            </div> -->
+      </div>
+    </div>
+  </div>
+</div>

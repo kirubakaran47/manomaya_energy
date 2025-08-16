@@ -1,0 +1,134 @@
+<div class="left side-menu">
+  <button type="button" (click)="toggleMobileMenu()"
+    class="button-menu-mobile button-menu-mobile-topbar open-left waves-effect">
+    x
+  </button>
+  <div class="sidebar-section">
+    <div class="sidebar-inner niceScrollleft" tabindex="5000">
+      <div class="topbar-left">
+
+        <div class="text-center">
+          <a class="logo">
+            <img src="assets/img/manomaya_energy.png" alt="" class="logo-large"> </a>
+          <span>Manomaya Energy Petroleum Retail Business</span>
+        </div>
+      </div>
+      <div id="sidebar-menu" class="active">
+        <ul>
+          <li *ngIf="userRoles.includes(101)">
+            <a [routerLink]="['/dashboard']" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }"
+              class="waves-effect">
+              <i class="fas fa-home"></i>
+              <span> Dashboard </span>
+            </a>
+          </li>
+          <!-- user Menu -->
+          <li class="has_sub" [ngClass]="{ 'nav-active': activeMenu === 'manage', 'active': activeMenu === 'manage' }">
+            <a href="javascript:void(0)" class="waves-effect" (click)="toggleMenu('manage')">
+              <i class="fa fa-users"></i>
+              <span> Staff</span>
+              <span class="float-right"><i class="fas fa-chevron-right"></i></span>
+            </a>
+            <ul class="list-unstyled" [style.display]="activeMenu === 'manage' ? 'block' : 'none'">
+              <li routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+                <a [routerLink]="['/addUser']">Add Staff</a>
+              </li>
+              <li routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+                <a [routerLink]="['/userDetails']">Manage Staff</a>
+              </li>
+            </ul>
+          </li>
+          <!-- Shift Entry Menu -->
+          <li class="has_sub"
+            [ngClass]="{ 'nav-active': activeMenu === 'shiftEntry', 'active': activeMenu === 'shiftEntry' }">
+            <a href="javascript:void(0)" class="waves-effect" (click)="toggleMenu('shiftEntry')">
+              <i class="fa fa-clock"></i>
+              <span> Shift Entry </span>
+              <span class="float-right"><i class="fas fa-chevron-right"></i></span>
+            </a>
+            <ul class="list-unstyled" [style.display]="activeMenu === 'shiftEntry' ? 'block' : 'none'">
+              <li routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+                <a [routerLink]="['/shiftEntry']">Add Shift Entry</a>
+              </li>
+              <!-- <li routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+                <a [routerLink]="['/shiftEntryList']">Manage Shift Entry</a>
+              </li> -->
+            </ul>
+          </li>
+          <!-- Purchase Entry Menu -->
+          <li class="has_sub"
+            [ngClass]="{ 'nav-active': activeMenu === 'purchaseEntry', 'active': activeMenu === 'purchaseEntry' }">
+            <a href="javascript:void(0)" class="waves-effect" (click)="toggleMenu('purchaseEntry')">
+              <i class="fa fa-receipt"></i>
+              <span> Purchase Entry </span>
+              <span class="float-right"><i class="fas fa-chevron-right"></i></span>
+            </a>
+            <ul class="list-unstyled" [style.display]="activeMenu === 'purchaseEntry' ? 'block' : 'none'">
+              <li routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+                <a [routerLink]="['/purchaseEntry']">Purchase Entry</a>
+              </li>
+            </ul>
+          </li>
+
+          <!-- Product Master -->
+          <li class="has_sub"
+            [ngClass]="{ 'nav-active': activeMenu === 'productMaster', 'active': activeMenu === 'productMaster' }">
+            <a href="javascript:void(0)" (click)="toggleMenu('productMaster')">
+              <i class="fa fa-archive"></i> <span>Master</span>
+              <span class="float-right"><i class="fas fa-chevron-right"></i></span>
+            </a>
+
+            <ul class="list-unstyled" [style.display]="activeMenu === 'productMaster' ? 'block' : 'none'">
+              <li routerLinkActive="active">
+                <a [routerLink]="['/productMaster']">Product Entry</a>
+              </li>
+
+              <!-- Vendor Management Submenu -->
+              <li class="has_sub"
+                [ngClass]="{ 'nav-active': activeSubMenu === 'vendor', 'active': activeSubMenu === 'vendor' }">
+                <a href="javascript:void(0)" (click)="toggleSubMenu('vendor')">
+                  <i class="fa fa-users"></i> <span>Vendor</span>
+                  <span class="float-right"><i class="fas fa-chevron-right"></i></span>
+                </a>
+
+                <ul class="list-unstyled" [style.display]="activeSubMenu === 'vendor' ? 'block' : 'none'">
+                  <li routerLinkActive="active">
+                    <a [routerLink]="['/addVendor']">Add Vendor</a>
+                  </li>
+                  <li routerLinkActive="active">
+                    <a [routerLink]="['/vendorList']">Vendor List</a>
+                  </li>
+                </ul>
+              </li>
+
+              <li routerLinkActive="active">
+                <a [routerLink]="['/rpsDetails']">RPS Details</a>
+              </li>
+              <li routerLinkActive="active">
+                <a [routerLink]="['/taxDetails']">Tax Details</a>
+              </li>
+            </ul>
+          </li>
+
+          <!-- Setting -->
+          <li class="has_sub"
+            [ngClass]="{ 'nav-active': activeMenu === 'settings', 'active': activeMenu === 'settings' }">
+            <a href="javascript:void(0)" class="waves-effect" (click)="toggleMenu('settings')">
+              <i class="fa fa-gear"></i>
+              <span> Settings </span>
+              <span class="float-right"><i class="fas fa-chevron-right"></i></span>
+            </a>
+            <ul class="list-unstyled" [style.display]="activeMenu === 'settings' ? 'block' : 'none'">
+              <li routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+                <a [routerLink]="['/settings']">Settings</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+
+
+      </div>
+
+    </div>
+  </div>
+</div>

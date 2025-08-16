@@ -1,0 +1,8 @@
+td .btn{
+  margin: 2px;
+  padding: 6px;
+  height: 30px;
+  line-height: 18px;
+}
+.modal-dialog{max-width: 80%;}
+div#editModal{padding-right: 0;}

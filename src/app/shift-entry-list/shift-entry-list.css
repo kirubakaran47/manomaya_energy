@@ -1,0 +1,10 @@
+th {
+    background: #174282;
+    color: #fff;
+}
+.btn-apply{
+    display: block;
+    margin: 10px 0px;
+    float: right;
+}
+.btn-apply .btn{float: right;}

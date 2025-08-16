@@ -1,0 +1,95 @@
+<div *ngIf="isLoading" class="loader-overlay">
+    <div class="loader"></div>
+</div>
+<div class="content-section">
+    <div class="row tittle">
+        <div class="top col-md-5 align-self-center">
+            <h5>RPS Detsils(INR)</h5>
+        </div>
+        <div class="col-md-7 align-self-center">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
+                <li class="breadcrumb-item active">RPS Detsils</li>
+            </ol>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-body">
+            <div class="">
+                <div class="table-responsive">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Date</th>
+                                <th>Category</th>
+                                <th>Liters</th>
+                                <th>Rate</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- List of saved rows -->
+                            <tr *ngFor="let row of savedRows; let i = index">
+                                <td>{{ i + 1 }}</td>
+                                <td>{{ row.date }}</td>
+                                <td>{{ row.category_name }}</td>
+                                <td>{{ row.number_of_liters }}</td>
+                                <td>{{ row.rate }}</td>
+                                <td>
+                                    <a class="btn btn-primary" (click)="editRpsDetails(i)">
+                                        <i class="fa fa-edit" aria-hidden="true"></i>
+                                    </a>
+                                    <a class="btn btn-danger" (click)="deleteRpsdetsils(i)">
+                                        <i class="fa fa-trash-alt" aria-hidden="true"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="12" style="background: #dfeef6;color: #2D3B48;">New RPS Record</td>
+                            </tr>
+                            <tr *ngFor="let row of rows; let i = index">
+                                <td>{{ i + 1 }}</td>
+                                <td>
+                                    <input type="date" [(ngModel)]="row.date" class="form-control" />
+                                    <div *ngIf="row.errors?.date" class="text-danger small">{{ row.errors.date }}</div>
+                                </td>
+                                <td>
+                                    <select [(ngModel)]="row.category" class="form-control">
+                                        <option value="MS">MS</option>
+                                        <option value="HSD">HSD</option>
+                                    </select>
+                                    <div *ngIf="row.errors?.category" class="text-danger small">{{ row.errors.category
+                                        }}</div>
+                                </td>
+                                <td>
+                                    <input type="number" [(ngModel)]="row.liters" class="form-control" />
+                                    <div *ngIf="row.errors?.liters" class="text-danger small">{{ row.errors.liters }}
+                                    </div>
+                                </td>
+                                <td>
+                                    <input type="number" [(ngModel)]="row.rate" class="form-control" />
+                                    <div *ngIf="row.errors?.rate" class="text-danger small">{{ row.errors.rate }}</div>
+                                </td>
+                                <td>
+                                    <button *ngIf="!isEditMode && rows.length > 1" class="btn btn-danger btn-sm me-1"
+                                        (click)="removeRow(i)">
+                                        -
+                                    </button>
+                                    <button *ngIf="!isEditMode && i === rows.length - 1" class="btn btn-success btn-sm"
+                                        (click)="addRow()">
+                                        +
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="rps-btn text-end">
+                        <button *ngIf="!isEditMode" class="btn btn-primary" (click)="saveRps()">Save</button>
+                        <button *ngIf="isEditMode" class="btn btn-warning" (click)="updateRps()">Update</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

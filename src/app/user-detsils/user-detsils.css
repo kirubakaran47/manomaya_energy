@@ -1,0 +1,13 @@
+table img {
+  object-fit: cover;
+  height: 50px;
+}
+td .btn{
+  margin: 2px;
+  padding: 6px;
+  height: 30px;
+  line-height: 18px;
+}
+.modal-dialog{        max-width: 900px;}
+#editUserModal{padding-right: 0;}
+
